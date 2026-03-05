@@ -5,8 +5,10 @@ interface Props {
 export const SearchForm = ({ onSearch }: Props) => {
   const handleSubmit = (FormData: FormData) => {
     const keyWord = FormData.get("keyword") as string;
-
-    onSearch(keyWord);
+    keyWord.trim();
+    if (keyWord) {
+      onSearch(keyWord);
+    }
   };
 
   return (

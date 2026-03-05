@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { getProducts, searchProducts } from "../../services/productsApi";
+import { getProducts } from "../../services/productsApi";
 
 import { ProductList } from "../ProductList/ProductList";
 import { SearchForm } from "../SearchForm/SearchForm";
@@ -12,16 +12,15 @@ export const App = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [isEmptyResult, setIsemptyResult] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const getData = async () => {
       try {
         setIsError(false);
         setIsLoading(true);
-        const { products } = await getProducts();
+        const { products } = await getProducts(search);
         setProducts(products);
-        console.log(products);
       } catch (error) {
         setIsError(true);
       } finally {
@@ -29,34 +28,22 @@ export const App = () => {
       }
     };
     getData();
-  }, []);
+  }, [search]);
 
   const handleSearch = async (keyWord: string) => {
-    try {
-      setIsError(false);
-      setIsemptyResult(false);
-      setIsLoading(true);
-      const { products } = await searchProducts(keyWord);
-      setProducts(products);
-      if (products.length === 0) {
-        setIsemptyResult(true);
-      }
-    } catch (error) {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
+    setSearch(keyWord);
   };
 
   return (
     <>
       <SearchForm onSearch={handleSearch} />
-      <ProductList products={products} />
-      {isLoading && <Notification notification="Loading..." />}
-      {isError && <Notification notification="Oops, something went wrong." />}
-      {isEmptyResult && (
+      {products ? (
+        <ProductList products={products} />
+      ) : (
         <Notification notification="Sorry, no results this time." />
       )}
+      {isLoading && <Notification notification="Loading..." />}
+      {isError && <Notification notification="Oops, something went wrong." />}
     </>
   );
 };
