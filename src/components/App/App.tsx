@@ -37,7 +37,7 @@ export const App = () => {
   return (
     <>
       <SearchForm onSearch={handleSearch} />
-      {products ? (
+      {products.length > 0 ? (
         <ProductList products={products} />
       ) : (
         <Notification notification="Sorry, no results this time." />
