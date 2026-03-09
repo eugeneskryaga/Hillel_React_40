@@ -2,7 +2,7 @@ import type { Product } from "../../types/types";
 
 import { ProductItem } from "../ProductItem/ProductItem";
 
-import "./ProductList.module.css";
+import css from "./ProductList.module.css";
 
 interface Props {
   products: Product[];
@@ -11,9 +11,12 @@ interface Props {
 
 export const ProductList = ({ products, handleClick }: Props) => {
   return (
-    <ul>
+    <ul className={css.product_list}>
       {products.map(product => (
-        <li key={product.id}>
+        <li
+          key={product.id}
+          className={css.product_list_item}
+        >
           <ProductItem
             product={product}
             onClickHandler={() => handleClick(product)}
