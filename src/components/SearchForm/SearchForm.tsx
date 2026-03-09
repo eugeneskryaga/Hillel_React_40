@@ -1,3 +1,5 @@
+import "./SearchForm.module.css";
+
 interface Props {
   onSearch: (keyWord: string) => void;
 }

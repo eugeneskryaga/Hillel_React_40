@@ -1,0 +1,14 @@
+form {
+  width: 350px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+input {
+  height: 25px;
+  width: 250px;
+  border-radius: 10px;
+  border: 2px solid #6F2B15;
+  font-size: 16px;
+  background-color: #EFECE9;
+}
