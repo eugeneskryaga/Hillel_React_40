@@ -21,10 +21,16 @@ export const Modal = ({ children, onClose }: Props) => {
     };
   }, [onClose]);
 
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
     <div
       className={css.backdrop}
-      onClick={onClose}
+      onClick={handleBackdropClick}
     >
       <div className={css.modal}>
         <button
