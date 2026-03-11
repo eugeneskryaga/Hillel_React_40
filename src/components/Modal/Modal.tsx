@@ -22,7 +22,10 @@ export const Modal = ({ children, onClose }: Props) => {
   }, [onClose]);
 
   return (
-    <div className={css.backdrop}>
+    <div
+      className={css.backdrop}
+      onClick={onClose}
+    >
       <div className={css.modal}>
         <button
           onClick={onClose}
