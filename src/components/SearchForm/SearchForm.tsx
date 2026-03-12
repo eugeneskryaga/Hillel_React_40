@@ -1,30 +1,18 @@
-import css from "./SearchForm.module.css";
+import { type DebouncedState } from "use-debounce";
+import { StyledSearch, StyledSearchInput } from "./SearchForm.styled";
 
 interface Props {
-  onSearch: (keyWord: string) => void;
+  onSearch: DebouncedState<React.Dispatch<React.SetStateAction<string>>>;
+  defaultValue: string;
 }
 
-export const SearchForm = ({ onSearch }: Props) => {
-  const handleSubmit = (FormData: FormData) => {
-    const keyWord = FormData.get("keyword") as string;
-    keyWord.trim();
-    if (keyWord) {
-      onSearch(keyWord);
-    }
-  };
-
+export const SearchForm = ({ defaultValue, onSearch }: Props) => {
   return (
-    <form
-      action={handleSubmit}
-      className={css.search_form}
-    >
-      <input
-        type="text"
-        name="keyword"
-        placeholder="Search..."
-        className={css.search_form_input}
+    <StyledSearch>
+      <StyledSearchInput
+        defaultValue={defaultValue}
+        onChange={e => onSearch(e.target.value)}
       />
-      <button type="submit">Search</button>
-    </form>
+    </StyledSearch>
   );
 };

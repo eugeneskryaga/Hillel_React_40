@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from "react";
-import css from "./Modal.module.css";
+import { Backdrop, ModalWindow, CloseBtn } from "./Modal.styled";
 
 interface Props {
   children: ReactNode;
@@ -28,19 +28,11 @@ export const Modal = ({ children, onClose }: Props) => {
   };
 
   return (
-    <div
-      className={css.backdrop}
-      onClick={handleBackdropClick}
-    >
-      <div className={css.modal}>
-        <button
-          onClick={onClose}
-          className={css.closeBtn}
-        >
-          Close
-        </button>
+    <Backdrop onClick={handleBackdropClick}>
+      <ModalWindow>
+        <CloseBtn onClick={onClose}>Close</CloseBtn>
         {children}
-      </div>
-    </div>
+      </ModalWindow>
+    </Backdrop>
   );
 };

@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-
 import { getProducts } from "../../services/productsApi";
-
+import type { Product } from "../../types/types";
 import { ProductList } from "../ProductList/ProductList";
 import { SearchForm } from "../SearchForm/SearchForm";
 import { Notification } from "../Notification/Notification";
-
-import type { Product } from "../../types/types";
 import { Modal } from "../Modal/Modal";
+import { useDebouncedCallback } from "use-debounce";
 
 export const App = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -32,9 +30,7 @@ export const App = () => {
     getData();
   }, [search]);
 
-  const handleSearch = async (keyWord: string) => {
-    setSearch(keyWord);
-  };
+  const handleSearch = useDebouncedCallback(value => setSearch(value), 500);
 
   const onModalOpen = (product: Product) => {
     setSelectedProduct(product);
@@ -46,7 +42,10 @@ export const App = () => {
 
   return (
     <>
-      <SearchForm onSearch={handleSearch} />
+      <SearchForm
+        defaultValue={search}
+        onSearch={handleSearch}
+      />
       {products.length > 0 ? (
         <ProductList
           products={products}

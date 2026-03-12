@@ -1,4 +1,4 @@
-import css from "./Notification.module.css";
+import { UserNotification } from "./Notification.styled";
 
 interface Props {
   notification: string;
@@ -6,8 +6,8 @@ interface Props {
 
 export const Notification = ({ notification }: Props) => {
   return (
-    <div className={css.userNotification}>
+    <UserNotification>
       <p>{notification}</p>
-    </div>
+    </UserNotification>
   );
 };
