@@ -30,7 +30,12 @@ export const App = () => {
     getData();
   }, [search]);
 
-  const handleSearch = useDebouncedCallback(value => setSearch(value), 500);
+  const handleSearch = useDebouncedCallback(value => {
+    const keyWord = value.trim();
+    if (keyWord) {
+      setSearch(keyWord);
+    }
+  }, 500);
 
   const onModalOpen = (product: Product) => {
     setSelectedProduct(product);
